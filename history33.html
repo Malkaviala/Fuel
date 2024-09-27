@@ -200,6 +200,7 @@
                     <td id="total-gallons"></td>
                     <td></td>
                     <td id="total-cost"></td>
+                    <td id="total-distance"></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -279,6 +280,15 @@
                         ...childSnapshot.val()
                     });
                 });
+                
+                // Extract odometer readings
+        let startOdometer = allPurchases[0]?.odometer || 0;
+        let endOdometer = allPurchases[allPurchases.length - 1]?.odometer || 0;
+        let distanceTravelled = endOdometer - startOdometer;
+
+        // Display the distance
+        document.getElementById('total-distance').textContent = distanceTravelled.toFixed(2) + ' miles';
+
 
                 console.log("All purchases:", allPurchases); // Debug line
 
