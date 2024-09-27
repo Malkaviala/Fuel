@@ -111,14 +111,25 @@
             const password = document.getElementById('login-password').value;
 
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // User logged in successfully
-                    const user = userCredential.user;
-                    window.location.href = 'index33.html'; // Redirect to dashboard
-                })
-                .catch((error) => {
-                    alert("Error: " + error.message);
-                });
+    .then((userCredential) => {
+        const user = userCredential.user;
+        window.location.href = 'history33.html'; // Redirect to dashboard
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if (errorCode === 'auth/unknown') {
+            console.error('An unknown error occurred:', errorMessage);
+        } else {
+            console.error('Firebase Error:', errorMessage);
+        }
+        
+        // Show user-friendly error messages
+        loadingMessage.style.display = 'none';
+        errorMessageElement.textContent = errorMessage;
+    });
+
         });
     </script>
 </body>
