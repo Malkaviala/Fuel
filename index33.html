@@ -251,7 +251,7 @@ button:active {
         // Logout functionality
         logoutButton.addEventListener('click', function() {
             auth.signOut().then(function() {
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             }).catch(function(error) {
                 console.error('Logout error:', error);
             });
