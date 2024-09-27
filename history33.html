@@ -9,12 +9,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.js"></script>
     
     <style>
+        
+        /* Add your styles here */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
             --accent-color: #e74c3c;
-            --background-color: #ecf0f1;
+            --background-color: #f5f7fa;
             --text-color: #34495e;
+            --table-header-bg: #2980b9;
+            --table-row-even: #ecf0f1;
+            --table-row-hover: #d5dbdb;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,148 +30,134 @@
             padding: 0;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        nav {
-            background-color: var(--secondary-color);
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        h1 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
         table {
-            width: 105%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: #efebeb;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
         }
         th, td {
-            padding: 15px;
-    		text-align: left;
-    		border-bottom: 1px solid #e0e0e0;
-    		white-space: nowrap; /* Prevent text wrapping */
-    		overflow: hidden; /* Hide overflow content */
-    		text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+            border: 1px solid #0d077d;
+            padding: 8px;
+            text-align: left;
         }
         th {
-            background-color: var(--primary-color);
-            color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        tfoot {
-            font-weight: bold;
-            background-color: var(--secondary-color);
-            color: #fff;
-        }
-        tfoot td {
-            border-top: 2px solid var(--accent-color);
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            margin: 0 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .pagination button:hover {
-            background-color: #2980b9;
-        }
-        .pagination button:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-        .pagination span {
-            margin: 0 10px;
-        }
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .edit-button {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .delete-button {
-            background-color: var(--accent-color);
-            color: white;
-        }
-        @media (max-width: 768px) {
-            table, tr, td {
-                display: block;
-            }
-            tr {
-                margin-bottom: 15px;
-            }
-            td {
-                text-align: right;
-                padding-left: 50%;
-                position: relative;
-            }
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 6px;
-                width: 45%;
-                text-align: left;
-                font-weight: bold;
-            }
-            .pagination {
-                flex-direction: column;
-                align-items: center;
-            }
-            .pagination button {
-                margin: 5px 0;
-            }
-        }
+    background-color: var(--table-header-bg);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+tr:nth-child(even) {
+    background-color: var(--table-row-even);
+}
+tr:hover {
+    background-color: var(--table-row-hover);
+}
+tfoot {
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+tfoot td {
+    border-top: 2px solid var(--accent-color);
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.pagination button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+.pagination button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+.pagination button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+.pagination span {
+    margin: 0 15px;
+    font-weight: bold;
+}
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+.edit-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+.delete-button {
+    background-color: var(--accent-color);
+    color: white;
+}
+.edit-button:hover, .delete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+@media (max-width: 768px) {
+    table, tr, td {
+        display: block;
+    }
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+    }
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border-bottom: none;
+    }
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+    }
+    .pagination {
+        flex-direction: column;
+        align-items: center;
+    }
+    .pagination button {
+        margin: 5px 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -203,7 +194,7 @@
                     <td id="total-distance"></td>
                     <td></td>
                     <td id="mpg"></td>
-                    <td></td>
+
                     <td></td>
                     <td></td>
                 </tr>
@@ -217,7 +208,6 @@
     </div>
 
     <script>
-        // The JavaScript remains the same yas in the previous version
         // Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDTutCGdUeopdBpR-yYKdOn8UXwy1UQ1t8",
@@ -240,7 +230,7 @@
 
         // Check authentication state
         auth.onAuthStateChanged((user) => {
-            console.log("User authenticated:", user ? "Yes" : "No"); // Debug line
+            console.log("User authenticated:", user ? "Yes" : "No");
             if (user) {
                 authMessage.style.display = 'none';
                 fuelTable.style.display = 'table';
@@ -250,7 +240,7 @@
                 authMessage.textContent = "You need to log in to view the fuel purchase history.";
                 fuelTable.style.display = 'none';
                 pagination.style.display = 'none';
-                window.location.href = 'index.html'; // Uncomment this line to redirect if not authenticated
+                window.location.href = 'index.html';
             }
         });
 
@@ -258,7 +248,7 @@
         const logoutBtn = document.getElementById('logout');
         logoutBtn.addEventListener('click', () => {
             auth.signOut().then(() => {
-                window.location.href = 'index.html'; // Redirect to login page after logout
+                window.location.href = 'index.html';
             });
         });
 
@@ -282,101 +272,78 @@
                     });
                 });
                 
+                // Sort purchases by date (newest first)
+                allPurchases.sort((a, b) => new Date(b.date) - new Date(a.date));
+
                 // Extract odometer readings
-        let startOdometer = allPurchases[0]?.odometer || 0;
-        let endOdometer = allPurchases[allPurchases.length - 1]?.odometer || 0;
-        let distanceTravelled = endOdometer - startOdometer;
-
-         // Calculate total gallons used
-        
-
-        // Display the distance
-        document.getElementById('total-distance').textContent = distanceTravelled.toFixed(2) + ' miles';
-
-
-
-                console.log("All purchases:", allPurchases); // Debug line
+                let startOdometer = allPurchases[allPurchases.length - 1]?.odometer || 0;
+                let endOdometer = allPurchases[0]?.odometer || 0;
+                let distanceTravelled = endOdometer - startOdometer;
 
                 // Calculate total gallons and total cost
                 const totalGallons = allPurchases.reduce((total, purchase) => total + purchase.gallons, 0);
                 const totalCost = allPurchases.reduce((total, purchase) => total + (purchase.gallons * purchase.price), 0);
-
-                document.getElementById('total-gallons').textContent = totalGallons.toFixed(2);
-                document.getElementById('total-cost').textContent = `$${totalCost.toFixed(2)}`;
 
                 // Calculate MPG
                 const mpg = (distanceTravelled / totalGallons) || 0; // Prevent division by zero
                 document.getElementById('total-distance').textContent = distanceTravelled.toFixed(2) + ' miles';
                 document.getElementById('mpg').textContent = mpg.toFixed(2) + ' MPG'; // Display MPG
 
-                
 
-                // Function to render the current page
-                // Function to render the current page
-function renderPage() {
-    table.innerHTML = '';
-    const startIdx = (currentPage - 1) * itemsPerPage;
-    const endIdx = startIdx + itemsPerPage;
-    const currentItems = allPurchases.slice(startIdx, endIdx);
+                function renderPage() {
+                    table.innerHTML = '';
+                    const startIdx = (currentPage - 1) * itemsPerPage;
+                    const endIdx = startIdx + itemsPerPage;
+                    const currentItems = allPurchases.slice(startIdx, endIdx);
 
-    // Calculate the previous odometer value
-    let previousOdometer = null;
+                    currentItems.forEach((purchase, index) => {
+                        const row = table.insertRow();
+                        row.insertCell().textContent = purchase.date;
+                        row.insertCell().textContent = purchase.gallons.toFixed(2);
+                        row.insertCell().textContent = `$${purchase.price.toFixed(2)}`;
+                        row.insertCell().textContent = `$${(purchase.gallons * purchase.price).toFixed(2)}`;
+                        row.insertCell().textContent = purchase.odometer;
+                        row.insertCell().textContent = purchase.location || 'N/A';
+                        
+                        const pdfCell = row.insertCell();
+                        if (purchase.pdfUrl) {
+                            const pdfLink = document.createElement('a');
+                            pdfLink.href = purchase.pdfUrl;
+                            pdfLink.textContent = 'View PDF';
+                            pdfLink.target = '_blank';
+                            pdfCell.appendChild(pdfLink);
+                        } else {
+                            pdfCell.textContent = 'No PDF';
+                        }
 
-    currentItems.forEach(purchase => {
-        const row = table.insertRow();
-        row.insertCell().textContent = purchase.date;
-        row.insertCell().textContent = purchase.gallons.toFixed(2);
-        row.insertCell().textContent = `$${purchase.price.toFixed(2)}`;
-        row.insertCell().textContent = `$${(purchase.gallons * purchase.price).toFixed(2)}`;
-        row.insertCell().textContent = purchase.odometer;
+                        const actionCell = row.insertCell();
+                        const actionButtons = document.createElement('div');
+                        actionButtons.className = 'action-buttons';
+                        
+                        const editButton = document.createElement('button');
+                        editButton.textContent = 'Edit';
+                        editButton.className = 'edit-button';
+                        editButton.onclick = () => editPurchase(purchase.key);
+                        actionButtons.appendChild(editButton);
+                        
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'delete-button';
+                        deleteButton.onclick = () => deletePurchase(purchase.key);
+                        actionButtons.appendChild(deleteButton);
 
-        // Calculate MPG
-        let mpg = 'N/A';
-        if (previousOdometer !== null) {
-            const distance = purchase.odometer - previousOdometer; // Calculate distance since last purchase
-            if (distance > 0 && purchase.gallons > 0) {
-                mpg = (distance / purchase.gallons).toFixed(2); // Calculate MPG
-            }
-        }
-        row.insertCell().textContent = mpg; // Insert MPG in the new column
-        previousOdometer = purchase.odometer; // Update previous odometer
-        row.insertCell().textContent = purchase.location || 'N/A';
-        
-        const pdfCell = row.insertCell();
-        if (purchase.pdfUrl) {
-            const pdfLink = document.createElement('a');
-            pdfLink.href = purchase.pdfUrl;
-            pdfLink.textContent = 'View PDF';
-            pdfLink.target = '_blank';
-            pdfCell.appendChild(pdfLink);
-        } else {
-            pdfCell.textContent = 'No PDF Available';
-        }
+                        actionCell.appendChild(actionButtons);
+                    });
 
-        const actionCell = row.insertCell();
-        const actionButtons = document.createElement('div');
-        actionButtons.className = 'action-buttons';
-        
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.className = 'edit-button';
-        editButton.onclick = () => editPurchase(purchase.key);
-        actionButtons.appendChild(editButton);
-        
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.className = 'delete-button';
-        deleteButton.onclick = () => deletePurchase(purchase.key);
-        actionButtons.appendChild(deleteButton);
+                    // Update totals
+                    document.getElementById('total-gallons').textContent = totalGallons.toFixed(2);
+                    document.getElementById('total-cost').textContent = `$${totalCost.toFixed(2)}`;
+                    document.getElementById('total-distance').textContent = `${distanceTravelled.toFixed(2)} miles`;
 
-        actionCell.appendChild(actionButtons);
-    });
-
-    pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(allPurchases.length / itemsPerPage)}`;
-    prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage * itemsPerPage >= allPurchases.length;
-}
-
+                    pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(allPurchases.length / itemsPerPage)}`;
+                    prevPageBtn.disabled = currentPage === 1;
+                    nextPageBtn.disabled = currentPage * itemsPerPage >= allPurchases.length;
+                }
 
                 renderPage();
 
