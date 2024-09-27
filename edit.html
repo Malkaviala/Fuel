@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Fuel Purchase</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: var(--secondary-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.cancel {
+            background-color: var(--accent-color);
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button.cancel:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Fuel Purchase</h1>
+        <div id="auth-message" class="auth-message"></div>
+        <form id="edit-form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" required>
+
+            <label for="gallons">Gallons:</label>
+            <input type="number" id="gallons" step="0.01" required>
+
+            <label for="price">$/Gal:</label>
+            <input type="number" id="price" step="0.01" required>
+
+            <label for="odometer">Odometer:</label>
+            <input type="number" id="odometer" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location">
+
+            <label for="pdfUrl">PDF URL:</label>
+            <input type="url" id="pdfUrl">
+
+            <button type="submit">Save Changes</button>
+            <button type="button" class="cancel" onclick="cancelEdit()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTutCGdUeopdBpR-yYKdOn8UXwy1UQ1t8",
+            authDomain: "fuel-f60f7.firebaseapp.com",
+            databaseURL: "https://fuel-f60f7-default-rtdb.firebaseio.com",
+            projectId: "fuel-f60f7",
+            storageBucket: "fuel-f60f7.appspot.com",
+            messagingSenderId: "286098349793",
+            appId: "1:286098349793:web:182f10dc0fea18423c21a0",
+            measurementId: "G-4N6DZ5FTKM"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        // Function to get the URL parameters
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Get the purchase ID from the URL
+        const purchaseId = getQueryParameter('key');
+
+        // Load the current purchase data for editing
+        window.onload = () => {
+            if (!purchaseId) {
+                alert('No purchase ID provided!');
+                window.location.href = 'index33.html'; // Redirect if no ID
+            } else {
+                loadPurchaseData(purchaseId);
+            }
+        };
+
+        // Function to load the purchase data
+        function loadPurchaseData(id) {
+            database.ref('fuel-purchases/' + id).once('value').then(snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    document.getElementById('date').value = data.date;
+                    document.getElementById('gallons').value = data.gallons;
+                    document.getElementById('price').value = data.price;
+                    document.getElementById('odometer').value = data.odometer;
+                    document.getElementById('location').value = data.location || '';
+                    document.getElementById('pdfUrl').value = data.pdfUrl || '';
+                } else {
+                    alert('No data found for this purchase.');
+                    window.location.href = 'index33.html'; // Redirect if no data found
+                }
+            }).catch(error => {
+                console.error('Error loading data:', error);
+                alert('Error loading data.');
+            });
+        }
+
+        // Handle form submission
+        document.getElementById('edit-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const updatedData = {
+                date: document.getElementById('date').value,
+                gallons: parseFloat(document.getElementById('gallons').value),
+                price: parseFloat(document.getElementById('price').value),
+                odometer: parseInt(document.getElementById('odometer').value),
+                location: document.getElementById('location').value,
+                pdfUrl: document.getElementById('pdfUrl').value
+            };
+
+            // Update the data in Firebase
+            database.ref('fuel-purchases/' + purchaseId).update(updatedData)
+            .then(() => {
+                window.location.href = 'history33.html';
+            })
+            .catch((error) => {
+                console.error('Error updating purchase:', error);
+                alert('Error updating purchase.');
+            });
+        });
+
+        // Cancel edit and redirect back to the main page
+        function cancelEdit() {
+            window.location.href = 'history33.html';
+        }
+    </script>
+</body>
+</html>
