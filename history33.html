@@ -203,6 +203,7 @@
                     <td id="total-distance"></td>
                     <td></td>
                     <td></td>
+                    <td id="total-mpg"></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -286,8 +287,15 @@
         let endOdometer = allPurchases[allPurchases.length - 1]?.odometer || 0;
         let distanceTravelled = endOdometer - startOdometer;
 
+         // Calculate total gallons used
+        const totalGallons = allPurchases.reduce((total, purchase) => total + purchase.gallons, 0);
+
+        // Calculate MPG
+        let mpg = totalGallons > 0 ? (distanceTravelled / totalGallons) : 0;
+
         // Display the distance
         document.getElementById('total-distance').textContent = distanceTravelled.toFixed(2) + ' miles';
+        document.getElementById('total-mpg').textContent = mpg.toFixed(2) + ' MPG';  
 
 
                 console.log("All purchases:", allPurchases); // Debug line
