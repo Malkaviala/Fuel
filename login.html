@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
-    <script src="firebaseConfig.js"></script> <!-- Your Firebase config file -->
-
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -88,7 +87,17 @@
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
 
-        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTutCGdUeopdBpR-yYKdOn8UXwy1UQ1t8",
+            authDomain: "fuel-f60f7.firebaseapp.com",
+            databaseURL: "https://fuel-f60f7-default-rtdb.firebaseio.com",
+            projectId: "fuel-f60f7",
+            storageBucket: "fuel-f60f7.appspot.com",
+            messagingSenderId: "286098349793",
+            appId: "1:286098349793:web:182f10dc0fea18423c21a0",
+            measurementId: "G-4N6DZ5FTKM"
+        };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
