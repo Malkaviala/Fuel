@@ -1,14 +1,13 @@
 // firebaseConfig.js
 const firebaseConfig = {
-  apiKey: "AIzaSyBVH4syVcOVAJJI0BkPl8EWUcarmgqQIH0",
-  authDomain: "shipment-c50a1.firebaseapp.com",
-  databaseURL: "https://shipment-c50a1-default-rtdb.firebaseio.com",
-  projectId: "shipment-c50a1",
-  storageBucket: "shipment-c50a1.appspot.com",
-  messagingSenderId: "552502680496",
-  appId: "1:552502680496:web:5563feea124f54904d5475",
-  measurementId: "G-6C927VG178"e41d9a97931",
-  measurementId: "G-BD3WQJ1FCY"
+  apiKey: "AIzaSyDTutCGdUeopdBpR-yYKdOn8UXwy1UQ1t8",
+  authDomain: "fuel-f60f7.firebaseapp.com",
+  databaseURL: "https://fuel-f60f7-default-rtdb.firebaseio.com",
+  projectId: "fuel-f60f7",
+  storageBucket: "fuel-f60f7.appspot.com",
+  messagingSenderId: "286098349793",
+  appId: "1:286098349793:web:182f10dc0fea18423c21a0",
+  measurementId: "G-4N6DZ5FTKM"
 };
 
 // Initialize Firebase
